@@ -1,0 +1,83 @@
+using System;
+
+namespace Diagram
+{
+    class Aktivitets_Diagram
+    {
+        static void Main(string[] args)
+        {
+            int Age;            // Användarens värde sparas
+            string InputAge;    // Användarens angivna ålder
+            int Money = 15000;  // Start kapital
+            int UserSaves;      // Användarens föreslagna månadsspar
+            int Diff;           // Skilland mellan start kapital och sparmål
+            int InputSaves;     // Användarens önskade sparmål
+            bool Retired = false;   // Kontrollerar om användaren har gått i pension
+
+
+            Console.WriteLine("Välkommen!");
+            Console.WriteLine("-----------------");
+
+
+            Console.WriteLine("Ange din Ålder!");
+            InputAge = Console.ReadLine();
+            Age = int.Parse(InputAge);
+
+            Console.WriteLine("Skriv in ditt önskade sparmål!");
+            InputSaves = int.Parse(Console.ReadLine());
+
+            do
+            {
+                Diff = InputSaves - Money;  // Användarens sparmål minus start kapital
+
+                if (Diff < 10000 && Age < 55)
+                {
+                    UserSaves = 2000;
+                }
+                else if (Diff < 10000 && Age >= 55)
+                {
+                    UserSaves = 5000;
+                }
+                else
+                {
+                    UserSaves = 3000;
+                }
+
+                Console.WriteLine("Ditt månadssparande är nu " + UserSaves + " Kr");
+
+                if (Money + UserSaves >= InputSaves)    // Jämför startkapital med månadssparande
+                {
+                    Money = InputSaves;     
+                    break;
+                }
+              
+                Money += InputSaves;
+                Age++;
+
+                if (Age >= 65)          // Kontrollerar om användaren redan har gått i pension
+                {
+                    Retired = true;
+                    break;
+                }
+            }
+            while (Money < InputSaves && Age < 65);     // Om användaren ej gått i pension, skrivs detta ut plus hur mycket användaren har sparat
+            {
+                if (Retired)
+                {
+                    Console.WriteLine("Grattis, Du har gått i pension och sparat " + Money + " Kr");
+                }
+                else
+                {
+                    Console.WriteLine("När du går i Pension har du sparat " + Money + " Kr");
+                }
+            }
+
+
+            Console.ReadKey();
+
+
+
+
+        }
+    }
+}
